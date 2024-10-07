@@ -13,7 +13,7 @@ export default class ProductManager{
         try {
             const data = await fs.readFile(productosFilePath, "utf-8");
             this.products = JSON.parse(data);
-            console.log(this.products); // para ver los productos cargados
+            // console.log(this.products); // para ver los productos cargados
         } catch (error) {
             console.log('Error al cargar los productos:', error);
             this.products = [];

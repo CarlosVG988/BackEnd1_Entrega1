@@ -88,23 +88,22 @@ router.post("/", async (req, res) => {
 });
 
 
-router.put("/:pid", async (req,res)=>{
+router.put("/:pid", async (req, res) => {
     try {
-        const productId = parseInt(req.params.pid)
-        const updateProduct = await productManager.updateProduct(productId,req.body);
+        const productId = parseInt(req.params.pid); // Obtener el ID del producto desde los parámetros
+        const updatedProduct = await productManager.updateProduct(productId, req.body); // Llamar  al método pasando el ID y los datos a actualizar
 
-        if(updateProduct){
-            res.json(updateProduct)
-        }else{
-            res.status(401).json({error : "Producto no encontrado"})
+        if (updatedProduct) {
+            res.json(updatedProduct); // Si se actualizó correctamente, devolver el producto
+        } else {
+            res.status(404).json({ error: "Producto no encontrado" }); // 404 si no existe el producto
         }
-        
 
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        
     }
-
-})
+});
 
 router.delete("/:pid", async (req,res)=>{
     try {
