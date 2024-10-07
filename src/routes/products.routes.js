@@ -90,7 +90,7 @@ router.post("/", async (req, res) => {
 
 router.put("/:pid", async (req,res)=>{
     try {
-        const products = parseInt(req.params.pid)
+        const productId = parseInt(req.params.pid)
         const updateProduct = await productManager.updateProduct(productId,req.body);
 
         if(updateProduct){
