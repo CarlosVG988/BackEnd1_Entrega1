@@ -15,6 +15,12 @@ export default class ProductManager{
             this.products = JSON.parse(data);
             // console.log(this.products); // para ver los productos cargados
         } catch (error) {
+
+            if(error.code == "ENOENT"){
+                this.products = [];
+                await this.saveToFile();
+
+            }
             console.log('Error al cargar los productos:', error);
             this.products = [];
         }

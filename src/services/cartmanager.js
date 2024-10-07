@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 
-const cartsFilePath= path.resolve("data","carro.json")
+const cartsFilePath= path.resolve("data","carros.json")
 
 export default class CartManager{
     constructor (){
@@ -11,12 +11,17 @@ export default class CartManager{
 
     async init() {
         try {
-            await fs.access(cartsFilePath);
             const data = await fs.readFile(cartsFilePath, "utf-8");
             this.carts = JSON.parse(data);
-            console.log(this.carts); // para ver los productos cargados
+            // console.log(this.carts); 
         } catch (error) {
-            console.log('Error al cargar el carro', error);
+
+            if(error.code == "ENOENT"){
+                this.carts = [];
+                await this.saveToFile();
+
+            }
+            // console.log('Error al cargar el carro', error);
             this.carts = [];
         }
     }
@@ -28,7 +33,15 @@ export default class CartManager{
     }
     
 
-    addCart(){}
+    addCart(newCartData){
+        const newCart = {
+            id:this.carts.length ? this.carts[this.carts.length-1].id+1 :1,
+            products: newCartData.products 
+        }
+        this.carts.push(newCart);
+        this.saveToFile();
+        return newCart;
+    }
 
 
 

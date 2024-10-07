@@ -10,16 +10,15 @@ const cartManager = new CartManager();
 
 router.post("/", async (req, res) => {
     try {
-        const { id , products} = req.body;
+        const {products} = req.body;
 
         // Validación de campos obligatorios
-        if (!id || !products) {
+        if (!products) {
             return res.status(400).json({ error: "Campos incorrectos para generar el carrito" });
         }
 
         // Crear el objeto del producto
         const newCartData = {
-            id,
             products
         };
 
