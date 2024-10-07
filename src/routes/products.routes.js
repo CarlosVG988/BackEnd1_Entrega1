@@ -101,7 +101,7 @@ router.put("/:pid", async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        
+        res.status(500).json({ error: "Error al actualizar el producto" }); // Manejar errores
     }
 });
 
