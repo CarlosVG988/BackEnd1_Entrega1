@@ -34,24 +34,43 @@ router.post("/", async (req, res) => {
 });
 
 
-router.put("/:cid/products/:pid", async (req, res) => {
-    try {
-        const productId = parseInt(req.params.pid); // Obtener el ID del producto desde los parámetros
-        const updatedProduct = await productManager.updateProduct(productId, req.body); // Llamar  al método pasando el ID y los datos a actualizar
+// router.put("/:cid/products/:pid", async (req, res) => {
+//     try {
+        
+//         const cartId = parseInt(req.params.cid);
+//         const productId = parseInt(req.params.pid);
 
-        if (updatedProduct) {
-            res.json(updatedProduct); // Si se actualizó correctamente, devolver el producto
-        } else {
-            res.status(404).json({ error: "Producto no encontrado" }); // 404 si no existe el producto
-        }
+//         const addProductToCart = await cartManager.loadProductToCart(cartId,productId);
+
+//         if (addProductToCart) {
+//             res.json(addProductToCart); 
+//         } else {
+//             res.status(404).json({ error: "No se actualizo el carrito" }); // 404 si no existe el producto
+//         }
+
+//     } catch (error) {
+//         console.log(error);
+        
+//     }
+// });
+
+router.get("/:cid", async (req,res)=>{
+    try {
+        const cartId = parseInt(req.params.cid)
+        const cart = await cartManager.getcartById(cartId);
+        
+        
+    if(cart){
+        res.json(cart)
+    } else{
+        res.status(404).json({error: "Carro no encontrado"})
+    }
 
     } catch (error) {
-        console.log(error);
-        
+        console.log(error)
     }
-});
 
-
+})
 
 
 export default router;

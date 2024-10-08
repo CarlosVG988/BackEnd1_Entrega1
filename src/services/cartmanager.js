@@ -43,7 +43,10 @@ export default class CartManager{
         return newCart;
     }
 
+    getcartById(cartId){
+        return this.carts.find (cart => cart.id === cartId)
 
+    }
 
 
 }
